@@ -5,7 +5,7 @@
    ```
    flutter pub get
    
-   flutter pub run build_runner buildF
+   flutter pub run build_runner build
    ```
 
 ## Generating g.dart problem
