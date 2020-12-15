@@ -5,7 +5,7 @@
    ```
    flutter pub get
    
-   flutter pub run build_runner build
+   flutter pub run build_runner buildF
    ```
 
 ## Generating g.dart problem
@@ -17,6 +17,7 @@
    
    and finaly:
    flutter pub run build_runner build
-   lub
+
+   or...
    flutter pub run build_runner build --delete-conflicting-outputs
    ```

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_app/common/resources/strings.dart';
+import 'dart:io' show Platform;
 
 class BaseWidgetTree extends StatelessWidget {
   BaseWidgetTree(
@@ -36,7 +37,7 @@ class BaseWidgetTree extends StatelessWidget {
       return AppBar(
         title: Text(title),
         centerTitle: true,
-        brightness: Brightness.dark,
+        brightness: Platform.isAndroid ? Brightness.light : Brightness.dark,
       );
     else
       return appBar;
