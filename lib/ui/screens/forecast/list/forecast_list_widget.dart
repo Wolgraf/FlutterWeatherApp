@@ -22,12 +22,12 @@ class ForecastListWidget extends StatefulWidget {
 }
 
 class _ForecastListWidgetState extends State<ForecastListWidget> {
-  List<ConsolidatedWeather> consolidatedWeatherList;
-  int selectedIndex = 0;
-  Unit currentUnit = Unit.celsius;
+  List<ConsolidatedWeather> _consolidatedWeatherList;
+  int _selectedIndex = 0;
+  Unit _currentUnit = Unit.celsius;
 
   bool hasData() =>
-      consolidatedWeatherList != null && consolidatedWeatherList.isNotEmpty;
+      _consolidatedWeatherList != null && _consolidatedWeatherList.isNotEmpty;
 
   bool isPortrait() => widget.orientation == Orientation.portrait;
 
@@ -40,11 +40,11 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
             if (state is DataLoadedState) {
               if (state.success) {
                 setState(() {
-                  consolidatedWeatherList = state.data.consolidatedWeather;
+                  _consolidatedWeatherList = state.data.consolidatedWeather;
                 });
                 if (hasData())
                   BlocProvider.of<ForecastListWidgetBloc>(context).add(
-                      CardSelectionEvent(consolidatedWeatherList.first, 0));
+                      CardSelectionEvent(_consolidatedWeatherList.first, 0));
               }
             }
           },
@@ -53,7 +53,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
           listener: (context, state) {
             if (state is CardSelectionState) {
               setState(() {
-                selectedIndex = state.index;
+                _selectedIndex = state.index;
               });
             }
           },
@@ -62,7 +62,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
           listener: (context, state) {
             if (state is UnitSelectionState) {
               setState(() {
-                currentUnit = state.unit;
+                _currentUnit = state.unit;
               });
             }
           },
@@ -85,9 +85,9 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         scrollDirection: isPortrait() ? Axis.horizontal : Axis.vertical,
-        itemCount: hasData() ? consolidatedWeatherList.length : 0,
+        itemCount: hasData() ? _consolidatedWeatherList.length : 0,
         itemBuilder: (context, index) {
-          final object = consolidatedWeatherList[index];
+          final object = _consolidatedWeatherList[index];
           return Container(
             width: CARD_LIST_SIZE,
             height: CARD_LIST_SIZE,
@@ -103,7 +103,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                 elevation: CARD_ELEVATION,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(CARD_RADIUS),
-                    side: selectedIndex == index
+                    side: _selectedIndex == index
                         ? const BorderSide(
                             color: COLOR_ACCENT,
                             width: CARD_SELECTED_BORDER_WIDTH)
@@ -128,7 +128,7 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
                       ),
                       VerticalSpacing(),
                       Text(
-                        currentUnit == Unit.celsius
+                        _currentUnit == Unit.celsius
                             ? object.cardTemperatures
                             : object.cardTemperaturesFhr,
                         style: TEXT_STYLE_HEADLINE_4,

@@ -21,8 +21,8 @@ class ForecastDetails extends StatefulWidget {
 }
 
 class _ForecastDetailsState extends State<ForecastDetails> {
-  ConsolidatedWeather object;
-  Unit currentUnit = Unit.celsius;
+  ConsolidatedWeather _consolidatedWeatherObject;
+  Unit _currentUnit = Unit.celsius;
 
   bool isPortrait() => widget.orientation == Orientation.portrait;
 
@@ -34,7 +34,7 @@ class _ForecastDetailsState extends State<ForecastDetails> {
             listener: (context, state) {
               if (state is CardSelectionState) {
                 setState(() {
-                  this.object = state.object;
+                  this._consolidatedWeatherObject = state.object;
                 });
               }
             },
@@ -43,7 +43,7 @@ class _ForecastDetailsState extends State<ForecastDetails> {
             listener: (context, state) {
               if (state is UnitSelectionState) {
                 setState(() {
-                  currentUnit = state.unit;
+                  _currentUnit = state.unit;
                 });
               }
             },
@@ -55,7 +55,7 @@ class _ForecastDetailsState extends State<ForecastDetails> {
               onRefresh: () async => getHomeBloc(context).add(GetDataEvent()),
               child: SingleChildScrollView(
                 physics: const AlwaysScrollableScrollPhysics(),
-                child: object != null
+                child: _consolidatedWeatherObject != null
                     ? ConstrainedBox(
                         constraints:
                             BoxConstraints(minHeight: constraint.maxHeight),
@@ -78,7 +78,8 @@ class _ForecastDetailsState extends State<ForecastDetails> {
                                   child: Align(
                                     alignment: Alignment.topCenter,
                                     child: SvgPicture.asset(
-                                        object.weatherIconPath,
+                                        _consolidatedWeatherObject
+                                            .weatherIconPath,
                                         width: isPortrait()
                                             ? ICON_SIZE_LARGE
                                             : ICON_SIZE_MEDIUM,
@@ -115,8 +116,9 @@ class _ForecastDetailsState extends State<ForecastDetails> {
                                                   width: double.infinity,
                                                   child: Text(
                                                     isPortrait()
-                                                        ? object.dayOfTheWeek
-                                                        : object
+                                                        ? _consolidatedWeatherObject
+                                                            .dayOfTheWeek
+                                                        : _consolidatedWeatherObject
                                                             .dayOfTheWeekWithDate,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -130,7 +132,8 @@ class _ForecastDetailsState extends State<ForecastDetails> {
                                                 child: SizedBox(
                                                   width: double.infinity,
                                                   child: Text(
-                                                    object.properWeatherName,
+                                                    _consolidatedWeatherObject
+                                                        .properWeatherName,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 5,
@@ -145,33 +148,39 @@ class _ForecastDetailsState extends State<ForecastDetails> {
                                           Visibility(
                                             visible: isPortrait(),
                                             child: Text(
-                                              object.applicableDate,
+                                              _consolidatedWeatherObject
+                                                  .applicableDate,
                                               style: TEXT_STYLE_HEADLINE_4,
                                             ),
                                           ),
                                           const VerticalSpacing(),
                                           Text(
-                                            currentUnit == Unit.celsius
-                                                ? object.detailsTemperature
-                                                : object.detailsTemperatureFhr,
+                                            _currentUnit == Unit.celsius
+                                                ? _consolidatedWeatherObject
+                                                    .detailsTemperature
+                                                : _consolidatedWeatherObject
+                                                    .detailsTemperatureFhr,
                                             style: TEXT_STYLE_HEADLINE_4,
                                           ),
                                           const VerticalSpacing(
                                               height: MEDIUM_MARGIN),
                                           Text(
-                                            object.properHumidity,
+                                            _consolidatedWeatherObject
+                                                .properHumidity,
                                             style: TEXT_STYLE_HEADLINE_4,
                                           ),
                                           const VerticalSpacing(
                                               height: MEDIUM_MARGIN),
                                           Text(
-                                            object.properPressure,
+                                            _consolidatedWeatherObject
+                                                .properPressure,
                                             style: TEXT_STYLE_HEADLINE_4,
                                           ),
                                           const VerticalSpacing(
                                               height: MEDIUM_MARGIN),
                                           Text(
-                                            object.properWind,
+                                            _consolidatedWeatherObject
+                                                .properWind,
                                             style: TEXT_STYLE_HEADLINE_4,
                                           ),
                                         ],

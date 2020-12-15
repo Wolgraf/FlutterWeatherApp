@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_weather_app/common/resources/strings.dart';
-import 'package:flutter_weather_app/network/api/application_dio.dart';
+import 'package:flutter_weather_app/network/api/app_http_client.dart';
 import 'package:flutter_weather_app/network/api/rest_client.dart';
 import 'package:logger/logger.dart';
 

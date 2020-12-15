@@ -25,8 +25,8 @@ class HomeScreen extends BaseStatefulPage {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  bool isLoadingVisible = false;
-  String city;
+  bool _isLoadingVisible = false;
+  String _cityName;
 
   @override
   void initState() {
@@ -37,30 +37,30 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseWidgetTree(
-      title: city ?? Strings.city,
+      title: _cityName ?? Strings.city,
       widgetsAboveChild: [
         BlocListener<HomeScreenBloc, HomeScreenState>(
           listener: (context, state) async {
             if (state is LoadingVisibilityState) {
               setState(() {
-                isLoadingVisible = state.visible;
+                _isLoadingVisible = state.visible;
               });
             } else if (state is DataLoadedState) {
               if (state.success) {
                 setState(() {
-                  city = state.data.title;
+                  _cityName = state.data.title;
                 });
               } else {
                 if (await widget.showNetworkErrorPopup(context))
                   getHomeBloc(context).add(GetDataEvent());
                 setState(() {
-                  city = Strings.error;
+                  _cityName = Strings.error;
                 });
               }
             }
           },
           child: Visibility(
-            visible: isLoadingVisible,
+            visible: _isLoadingVisible,
             child: new LinearProgressIndicator(
                 backgroundColor: COLOR_SECONDARY_DARK),
           ),

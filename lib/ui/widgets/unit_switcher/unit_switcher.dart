@@ -22,7 +22,7 @@ class UnitSwitcher extends StatefulWidget {
 }
 
 class _UnitSwitcherState extends State<UnitSwitcher> {
-  Unit currentUnit = Unit.celsius;
+  Unit _currentUnit = Unit.celsius;
 
   bool isPortrait() => widget.orientation == Orientation.portrait;
 
@@ -38,7 +38,7 @@ class _UnitSwitcherState extends State<UnitSwitcher> {
       listener: (context, state) {
         if (state is UnitSelectionState) {
           setState(() {
-            currentUnit = state.unit;
+            _currentUnit = state.unit;
           });
         }
       },
@@ -66,7 +66,7 @@ class _UnitSwitcherState extends State<UnitSwitcher> {
                   padding: const EdgeInsets.all(MEDIUM_PADDING),
                   child: Text(
                     UNIT_CELSIUS,
-                    style: currentUnit == Unit.celsius
+                    style: _currentUnit == Unit.celsius
                         ? TEXT_STYLE_HEADLINE_6_ACCENT
                         : TEXT_STYLE_HEADLINE_6,
                   ),
@@ -80,7 +80,7 @@ class _UnitSwitcherState extends State<UnitSwitcher> {
                   padding: const EdgeInsets.all(MEDIUM_PADDING),
                   child: Text(
                     UNIT_FAHRENHEIT,
-                    style: currentUnit == Unit.fahrenheit
+                    style: _currentUnit == Unit.fahrenheit
                         ? TEXT_STYLE_HEADLINE_6_ACCENT
                         : TEXT_STYLE_HEADLINE_6,
                   ),
