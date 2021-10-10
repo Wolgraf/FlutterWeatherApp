@@ -7,8 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:mock_web_server/mock_web_server.dart';
 import 'package:test/test.dart';
 
-MockWebServer _mockWebServer;
-RestClient _restClient;
+MockWebServer? _mockWebServer;
+RestClient? _restClient;
 
 void main() {
   var testHeaders = {"Content-Type": "application/json"};
@@ -30,7 +30,7 @@ void main() {
       airPressure: testDouble,
       humidity: testInt);
 
-  List<ConsolidatedWeather> testList = new List();
+  List<ConsolidatedWeather> testList = [];
   testList.add(testConsolidatedWeather);
 
   var testResponseGetLocationForecast = {
@@ -41,159 +41,159 @@ void main() {
   setUp(() async {
     _mockWebServer = MockWebServer();
 
-    await _mockWebServer.start();
+    await _mockWebServer!.start();
     final dio = Dio();
-    _restClient = RestClient(dio, baseUrl: _mockWebServer.url);
+    _restClient = RestClient(dio, baseUrl: _mockWebServer!.url);
   });
 
   tearDown(() {
-    _mockWebServer.shutdown();
+    _mockWebServer!.shutdown();
   });
 
   test("getLocationForecast returns correct title", () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.title, "string");
   });
 
   test("getLocationForecast returns correct single object's properWeatherName",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.properWeatherName, "string");
   });
 
   test("getLocationForecast returns correct single object's weatherIconPath",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.weatherIconPath,
         "assets/icons/string.svg");
   });
 
   test("getLocationForecast returns correct single object's hasIcon", () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.hasIcon, true);
   });
 
   test("getLocationForecast returns correct single object's dayDateTime",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.dayDateTime,
         DateTime.parse(testStringDate));
   });
 
   test("getLocationForecast returns correct single object's dayOfTheWeekAbb",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.dayOfTheWeekAbb,
         DateFormat("EEE").format(DateTime.parse(testStringDate)));
   });
 
   test("getLocationForecast returns correct single object's dayOfTheWeek",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.dayOfTheWeek,
         DateFormat("EEEE").format(DateTime.parse(testStringDate)));
   });
 
   test("getLocationForecast returns correct single object's minTempText",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.minTempText, "1.0 \u{2103}");
   });
 
   test("getLocationForecast returns correct single object's minTempTextFhr",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.minTempTextFhr, "33.8 \u{2109}");
   });
 
   test("getLocationForecast returns correct single object's properHumidity",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.properHumidity, "Humidity: 1 %");
   });
 
   test("getLocationForecast returns correct single object's properPressure",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(
         response.consolidatedWeather.first.properPressure, "Pressure: 1.0 hPa");
   });
 
   test("getLocationForecast returns correct single object's properWind",
       () async {
-    _mockWebServer.enqueue(
+    _mockWebServer!.enqueue(
       httpCode: 200,
       headers: testHeaders,
       body: json.encode(testResponseGetLocationForecast),
     );
 
-    final response = await _restClient.getLocationForecast();
+    final response = await _restClient!.getLocationForecast();
     expect(response.consolidatedWeather.first.properWind,
         "Wind: (string) 1.00 mph");
   });

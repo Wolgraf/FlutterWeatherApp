@@ -2,11 +2,12 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_app/common/resources/text_styles.dart';
 
 class PlatformAlertDialog {
-  static Future<bool> showAlertDialog(BuildContext context, String title,
+  static Future<bool?> showAlertDialog(BuildContext context, String title,
       String bodyText, String applyText, String cancelText) {
-    Widget dialog;
+    Widget? dialog;
     if (Platform.isIOS) {
       dialog =
           _getCupertinoAlert(context, title, bodyText, applyText, cancelText);
@@ -17,7 +18,7 @@ class PlatformAlertDialog {
 
     return showDialog(
       context: context,
-      builder: (BuildContext context) => dialog,
+      builder: (BuildContext context) => dialog!,
     );
   }
 
@@ -45,14 +46,20 @@ class PlatformAlertDialog {
 
   static Widget _getAndroidAlert(BuildContext context, String title,
       String bodyText, String applyText, String cancelText) {
-    final Widget cancelButton = FlatButton(
-      child: Text(cancelText),
+    final Widget cancelButton = TextButton(
+      child: Text(
+        cancelText,
+        style: TEXT_STYLE_HEADLINE_4_ACCENT,
+      ),
       onPressed: () {
         Navigator.of(context).pop(false);
       },
     );
-    final Widget applyButton = FlatButton(
-      child: Text(applyText),
+    final Widget applyButton = TextButton(
+      child: Text(
+        applyText,
+        style: TEXT_STYLE_HEADLINE_4_ACCENT,
+      ),
       onPressed: () {
         Navigator.of(context).pop(true);
       },

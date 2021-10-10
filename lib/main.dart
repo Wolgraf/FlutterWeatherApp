@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
           primaryColor: COLOR_PRIMARY,
           accentColor: COLOR_ACCENT,
+          primarySwatch: COLOR_PRIMARY_SWATCH,
           fontFamily: Strings.fontFamily,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),

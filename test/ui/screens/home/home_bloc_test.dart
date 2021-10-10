@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 class MockForecastRepository extends Mock implements ForecastRepository {}
 
 void main() {
-  MockForecastRepository mockForecastRepository;
+  MockForecastRepository? mockForecastRepository;
   var testString = "string";
   var testStringDate = "01-01-2020";
   var testInt = 1;
@@ -30,7 +30,7 @@ void main() {
       airPressure: testDouble,
       humidity: testInt);
 
-  List<ConsolidatedWeather> testList = new List();
+  List<ConsolidatedWeather> testList = [];
   testList.add(testConsolidatedWeather);
 
   var testResponse = ForecastResponse(testList, testString);
@@ -40,32 +40,32 @@ void main() {
   });
 
   group("Get forecast data from API", () {
-    blocTest(
+    blocTest<HomeScreenBloc, HomeScreenState>(
       "Successfully get data",
       build: () {
-        when(mockForecastRepository.getLocationForecast()).thenAnswer(
+        when(mockForecastRepository!.getLocationForecast()).thenAnswer(
             (_) async => ApiResponse<ForecastResponse>.completed(testResponse));
         return HomeScreenBloc(repository: mockForecastRepository);
       },
       act: (bloc) => bloc.add(GetDataEvent()),
-      expect: [
+      expect: () => [
         LoadingVisibilityState(true),
         LoadingVisibilityState(false),
         DataLoadedState(data: testResponse, success: true)
       ],
     );
 
-    blocTest(
+    blocTest<HomeScreenBloc, HomeScreenState>(
       "Internal Server Error when getting data",
       build: () {
-        when(mockForecastRepository.getLocationForecast()).thenAnswer(
+        when(mockForecastRepository!.getLocationForecast()).thenAnswer(
             (_) async => ApiResponse<ForecastResponse>.error(
                 message: "Internal Server Error",
                 statusCode: HttpStatus.internalServerError));
         return HomeScreenBloc(repository: mockForecastRepository);
       },
       act: (bloc) => bloc.add(GetDataEvent()),
-      expect: [
+      expect: () => [
         LoadingVisibilityState(true),
         LoadingVisibilityState(false),
         DataLoadedState(success: false)

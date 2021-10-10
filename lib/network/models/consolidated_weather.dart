@@ -9,24 +9,24 @@ part 'consolidated_weather.g.dart';
 @JsonSerializable(explicitToJson: true)
 class ConsolidatedWeather {
   @JsonKey(name: 'weather_state_name')
-  String weatherStateName;
+  String? weatherStateName;
   @JsonKey(name: 'weather_state_abbr')
-  String weatherStateAbbr;
+  String? weatherStateAbbr;
   @JsonKey(name: 'applicable_date')
-  String applicableDate;
+  String? applicableDate;
   @JsonKey(name: 'min_temp')
-  double minTemp;
+  double? minTemp;
   @JsonKey(name: 'max_temp')
-  double maxTemp;
+  double? maxTemp;
   @JsonKey(name: 'the_temp')
-  double theTemp;
+  double? theTemp;
   @JsonKey(name: 'wind_speed')
-  double windSpeed;
+  double? windSpeed;
   @JsonKey(name: 'wind_direction_compass')
-  String windDirectionCompass;
+  String? windDirectionCompass;
   @JsonKey(name: 'air_pressure')
-  double airPressure;
-  int humidity;
+  double? airPressure;
+  int? humidity;
 
   get properWeatherName => weatherStateName ?? '';
 
@@ -36,7 +36,7 @@ class ConsolidatedWeather {
 
   get dayDateTime {
     try {
-      return DateTime.parse(applicableDate);
+      return DateTime.parse(applicableDate!);
     } catch (e, stackTrace) {
       Logger().e(Strings.error, e, stackTrace);
       return DateTime.now();
@@ -64,24 +64,24 @@ class ConsolidatedWeather {
   get dayOfTheWeekWithDate => '$dayOfTheWeek, $applicableDate';
 
   get minTempText =>
-      minTemp != null ? minTemp.toStringAsFixed(1) + ' $UNIT_CELSIUS' : '-';
+      minTemp != null ? minTemp!.toStringAsFixed(1) + ' $UNIT_CELSIUS' : '-';
 
   get minTempTextFhr => minTemp != null
-      ? convertToFhr(minTemp).toStringAsFixed(1) + ' $UNIT_FAHRENHEIT'
+      ? convertToFhr(minTemp!).toStringAsFixed(1) + ' $UNIT_FAHRENHEIT'
       : '-';
 
   get maxTempText =>
-      maxTemp != null ? maxTemp.toStringAsFixed(1) + ' $UNIT_CELSIUS' : '-';
+      maxTemp != null ? maxTemp!.toStringAsFixed(1) + ' $UNIT_CELSIUS' : '-';
 
   get maxTempTextFhr => maxTemp != null
-      ? convertToFhr(maxTemp).toStringAsFixed(1) + ' $UNIT_FAHRENHEIT'
+      ? convertToFhr(maxTemp!).toStringAsFixed(1) + ' $UNIT_FAHRENHEIT'
       : '-';
 
   get theTempText =>
-      theTemp != null ? theTemp.toStringAsFixed(1) + ' $UNIT_CELSIUS' : '-';
+      theTemp != null ? theTemp!.toStringAsFixed(1) + ' $UNIT_CELSIUS' : '-';
 
   get theTempTextFhr => theTemp != null
-      ? convertToFhr(theTemp).toStringAsFixed(1) + ' $UNIT_FAHRENHEIT'
+      ? convertToFhr(theTemp!).toStringAsFixed(1) + ' $UNIT_FAHRENHEIT'
       : '-';
 
   get cardTemperatures =>
@@ -100,7 +100,7 @@ class ConsolidatedWeather {
       '${Strings.pressure} ${airPressure ?? 0} $UNIT_PRESSURE';
 
   get properWind => windSpeed != null
-      ? '${Strings.wind} (${windDirectionCompass ?? ''}) ${windSpeed.toStringAsFixed(2)} $UNIT_WIND_SPEED'
+      ? '${Strings.wind} (${windDirectionCompass ?? ''}) ${windSpeed!.toStringAsFixed(2)} $UNIT_WIND_SPEED'
       : '0';
 
   ConsolidatedWeather(
@@ -115,7 +115,7 @@ class ConsolidatedWeather {
       this.airPressure,
       this.humidity});
 
-  convertToFhr(double celsius) => (celsius ?? 0) * 1.8 + 32.0;
+  convertToFhr(double celsius) => celsius * 1.8 + 32.0;
 
   factory ConsolidatedWeather.fromJson(Map<String, dynamic> json) =>
       _$ConsolidatedWeatherFromJson(json);

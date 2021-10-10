@@ -6,10 +6,10 @@ class ApiResponse<T> {
 
   ApiResponse.error({this.message, this.statusCode}) : status = Status.ERROR;
 
-  Status status;
-  T data;
-  String message;
-  int statusCode;
+  Status? status;
+  T? data;
+  String? message;
+  int? statusCode;
 
   @override
   String toString() {

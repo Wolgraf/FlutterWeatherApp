@@ -17,7 +17,7 @@ HomeScreenBloc getHomeBloc(BuildContext context) =>
 
 class HomeScreen extends BaseStatefulPage {
   const HomeScreen({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -26,7 +26,7 @@ class HomeScreen extends BaseStatefulPage {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool _isLoadingVisible = false;
-  String _cityName;
+  String? _cityName;
 
   @override
   void initState() {
@@ -46,12 +46,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 _isLoadingVisible = state.visible;
               });
             } else if (state is DataLoadedState) {
-              if (state.success) {
+              if (state.success!) {
                 setState(() {
-                  _cityName = state.data.title;
+                  _cityName = state.data!.title;
                 });
               } else {
-                if (await widget.showNetworkErrorPopup(context))
+                var alertResponse = await widget.showNetworkErrorPopup(context);
+                if (alertResponse ?? false)
                   getHomeBloc(context).add(GetDataEvent());
                 setState(() {
                   _cityName = Strings.error;
@@ -61,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           child: Visibility(
             visible: _isLoadingVisible,
-            child: new LinearProgressIndicator(
+            child: const LinearProgressIndicator(
                 backgroundColor: COLOR_SECONDARY_DARK),
           ),
         )

@@ -22,12 +22,12 @@ class ForecastListWidget extends StatefulWidget {
 }
 
 class _ForecastListWidgetState extends State<ForecastListWidget> {
-  List<ConsolidatedWeather> _consolidatedWeatherList;
+  List<ConsolidatedWeather>? _consolidatedWeatherList;
   int _selectedIndex = 0;
   Unit _currentUnit = Unit.celsius;
 
   bool hasData() =>
-      _consolidatedWeatherList != null && _consolidatedWeatherList.isNotEmpty;
+      _consolidatedWeatherList != null && _consolidatedWeatherList!.isNotEmpty;
 
   bool isPortrait() => widget.orientation == Orientation.portrait;
 
@@ -38,13 +38,13 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
         BlocListener<HomeScreenBloc, HomeScreenState>(
           listener: (context, state) {
             if (state is DataLoadedState) {
-              if (state.success) {
+              if (state.success!) {
                 setState(() {
-                  _consolidatedWeatherList = state.data.consolidatedWeather;
+                  _consolidatedWeatherList = state.data!.consolidatedWeather;
                 });
                 if (hasData())
                   BlocProvider.of<ForecastListWidgetBloc>(context).add(
-                      CardSelectionEvent(_consolidatedWeatherList.first, 0));
+                      CardSelectionEvent(_consolidatedWeatherList!.first, 0));
               }
             }
           },
@@ -85,9 +85,9 @@ class _ForecastListWidgetState extends State<ForecastListWidget> {
       child: ListView.builder(
         physics: BouncingScrollPhysics(),
         scrollDirection: isPortrait() ? Axis.horizontal : Axis.vertical,
-        itemCount: hasData() ? _consolidatedWeatherList.length : 0,
+        itemCount: hasData() ? _consolidatedWeatherList!.length : 0,
         itemBuilder: (context, index) {
-          final object = _consolidatedWeatherList[index];
+          final object = _consolidatedWeatherList![index];
           return Container(
             width: CARD_LIST_SIZE,
             height: CARD_LIST_SIZE,

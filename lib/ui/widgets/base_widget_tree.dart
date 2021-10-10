@@ -9,18 +9,18 @@ class BaseWidgetTree extends StatelessWidget {
       {this.title, this.appBar, this.widgetsAboveChild, @required this.child})
       : assert(child != null);
 
-  final String title;
-  final AppBar appBar;
-  final List<Widget> widgetsAboveChild;
-  final Widget child;
+  final String? title;
+  final AppBar? appBar;
+  final List<Widget>? widgetsAboveChild;
+  final Widget? child;
   final List<Widget> mStack = [];
 
   @override
   Widget build(BuildContext context) {
     var mChild = child ?? Text(Strings.error);
     mStack.add(mChild);
-    if (widgetsAboveChild != null && widgetsAboveChild.isNotEmpty)
-      mStack.addAll(widgetsAboveChild);
+    if (widgetsAboveChild != null && widgetsAboveChild!.isNotEmpty)
+      mStack.addAll(widgetsAboveChild!);
     return Scaffold(
       appBar: _getAppbar(title, appBar),
       body: SafeArea(
@@ -31,7 +31,7 @@ class BaseWidgetTree extends StatelessWidget {
     );
   }
 
-  AppBar _getAppbar(String title, AppBar appBar) {
+  AppBar? _getAppbar(String? title, AppBar? appBar) {
     if (title == null && appBar == null)
       return null;
     else if (appBar == null && title != null)

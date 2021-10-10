@@ -14,9 +14,9 @@ class BaseRepository {
   }
 
   final Dio _dio = AppHttpClient().dio;
-  RestClient _restClient;
+  RestClient? _restClient;
 
-  RestClient get restClient {
+  RestClient? get restClient {
     return _restClient;
   }
 
@@ -36,13 +36,13 @@ class BaseRepository {
   }
 
   ApiError _handleDioException(DioError e, StackTrace stackTrace) {
-    if (e.type == DioErrorType.RESPONSE) {
-      final int statusCode = e.response.statusCode;
+    if (e.type == DioErrorType.response) {
+      final int? statusCode = e.response?.statusCode;
       if (statusCode == HttpStatus.unauthorized) {
-        return ApiError(code: statusCode, message: Strings.unauthorized);
+        return ApiError(code: statusCode!, message: Strings.unauthorized);
       } else {
         Logger().e(Strings.error, e, stackTrace);
-        return ApiError(code: statusCode, message: e.response.statusMessage);
+        return ApiError(code: statusCode!, message: e.response!.statusMessage);
       }
     } else {
       Logger().e(Strings.error, e, stackTrace);
@@ -59,6 +59,6 @@ class BaseRepository {
 class ApiError {
   ApiError({this.code, this.message});
 
-  String message;
-  int code;
+  String? message;
+  int? code;
 }

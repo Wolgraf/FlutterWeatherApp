@@ -6,7 +6,7 @@ import 'models/forecast_response.dart';
 class ForecastRepository extends BaseRepository {
   Future<ApiResponse<ForecastResponse>> getLocationForecast() async {
     try {
-      var response = await restClient.getLocationForecast();
+      var response = await restClient!.getLocationForecast();
       return ApiResponse.completed(response);
     } catch (e, stackTrace) {
       return handleException<ForecastResponse>(e, stackTrace);

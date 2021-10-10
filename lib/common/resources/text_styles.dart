@@ -28,3 +28,10 @@ const TextStyle TEXT_STYLE_HEADLINE_6_ACCENT = TextStyle(
     fontFamily: Strings.fontFamily,
     fontWeight: FontWeight.w500,
     color: COLOR_ACCENT);
+
+/// 14 medium accent
+const TextStyle TEXT_STYLE_HEADLINE_4_ACCENT = TextStyle(
+    fontSize: FONT_SIZE_NORMAL,
+    fontFamily: Strings.fontFamily,
+    fontWeight: FontWeight.w500,
+    color: COLOR_ACCENT);

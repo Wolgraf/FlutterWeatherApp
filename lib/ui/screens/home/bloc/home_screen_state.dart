@@ -11,11 +11,13 @@ class HomeScreenInitial extends HomeScreenState {
 
 class DataLoadedState extends HomeScreenState {
   const DataLoadedState({this.data, this.success});
-  final ForecastResponse data;
-  final bool success;
+
+  final ForecastResponse? data;
+  final bool? success;
 
   @override
-  List<Object> get props => [data, success];
+  List<Object> get props =>
+      data != null && success != null ? [data!, success!] : [];
 }
 
 class LoadingVisibilityState extends HomeScreenState {

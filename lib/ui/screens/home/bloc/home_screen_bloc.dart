@@ -15,7 +15,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
       : assert(repository != null),
         super(HomeScreenInitial());
 
-  final ForecastRepository repository;
+  final ForecastRepository? repository;
 
   @override
   Stream<HomeScreenState> mapEventToState(
@@ -31,10 +31,10 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   Stream<HomeScreenState> _handleGetData() async* {
     try {
       yield LoadingVisibilityState(true);
-      var response = await repository.getLocationForecast();
+      var response = await repository!.getLocationForecast();
       yield LoadingVisibilityState(false);
       if (response.hasData())
-        yield DataLoadedState(data: response.data, success: true);
+        yield DataLoadedState(data: response.data!, success: true);
       else
         yield DataLoadedState(success: false);
     } catch (e, stackTrace) {

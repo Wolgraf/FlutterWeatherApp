@@ -3,7 +3,7 @@ import 'package:flutter_weather_app/common/resources/strings.dart';
 import 'package:flutter_weather_app/ui/widgets/alert_dialogs/platform_alert_dialog.dart';
 
 abstract class BaseStatefulPage extends StatefulWidget {
-  const BaseStatefulPage({Key key}) : super(key: key);
+  const BaseStatefulPage({Key? key}) : super(key: key);
 
   Route getRoute() {
     return PageRouteBuilder(
@@ -25,9 +25,9 @@ abstract class BaseStatefulPage extends StatefulWidget {
         settings: RouteSettings(name: getRouteName));
   }
 
-  String get getRouteName => null;
+  String? get getRouteName => null;
 
-  Future<bool> showNetworkErrorPopup(BuildContext context) async {
+  Future<bool?> showNetworkErrorPopup(BuildContext? context) async {
     if (context == null) return false;
     return await PlatformAlertDialog.showAlertDialog(context, Strings.error,
         Strings.connectionError, Strings.retry, Strings.cancel);

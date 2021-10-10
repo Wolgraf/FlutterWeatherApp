@@ -11,7 +11,7 @@ class ForecastResponse {
 
   ForecastResponse(this.consolidatedWeather, this.title);
 
-  get city => title ?? "";
+  get city => title;
 
   factory ForecastResponse.fromJson(Map<String, dynamic> json) =>
       _$ForecastResponseFromJson(json);
