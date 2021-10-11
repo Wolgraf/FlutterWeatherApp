@@ -7,7 +7,7 @@ It was written in Dart with BLoC pattern.
 Develop a Flutter application that displays weather information for a given city using the REST API ( https://www.metaweather.com/api/ ).
 The location can be hardcoded.
 
-## Acceptance criterias
+### Acceptance criterias
 - It is done when loading indicator is displayed when fetching the data,
 - It is done when weather list item contains the day of the week abbreviation, weather
   condition image, min and max temperature,
@@ -17,13 +17,13 @@ The location can be hardcoded.
 - It is done when weather information can be refreshed with pull to refresh gesture,
 - It is done when an error screen with a retry button is shown when fetching the data fails.
 
-## Extra points
+### Extra points
 - Supporting horizontal and vertical layouts,
 - Changing the temperature’s unit (C/F).
 
 ![Alt text](/images/sketch.jpg?raw=true "Sketch")
 
-## Result
+### Result
 
 ![Alt text](/images/result.jpg?raw=true "Vertical")
 
@@ -51,6 +51,7 @@ The location can be hardcoded.
    flutter pub run build_runner build --delete-conflicting-outputs
    ```
    
-## Screenshot
+## Screenshots
 
-![Alt text](/images/sketch.jpg?raw=true "Sketch")
+![Alt text](/images/screenshot_horizontal.png?raw=true "Horizontal")
+![Alt text](/images/screenshot_vertical.png?raw=true "Vertical")
