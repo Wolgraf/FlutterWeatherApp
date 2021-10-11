@@ -1,7 +1,7 @@
 # Flutter Weather App Demo
 
-## Intro
 This demo application was created for recruitment purposes.
+It was written in Dart with BLoC pattern. 
 
 ## Goal
 Develop a Flutter application that displays weather information for a given city using the REST API ( https://www.metaweather.com/api/ ).
@@ -17,11 +17,15 @@ The location can be hardcoded.
 - It is done when weather information can be refreshed with pull to refresh gesture,
 - It is done when an error screen with a retry button is shown when fetching the data fails.
 
-![Alt text](/sketch.jpg?raw=true "Sketch")
-
 ## Extra points
 - Supporting horizontal and vertical layouts,
 - Changing the temperature’s unit (C/F).
+
+![Alt text](/images/sketch.jpg?raw=true "Sketch")
+
+## Result
+
+![Alt text](/images/result.jpg?raw=true "Vertical")
 
 ## Help
 
@@ -46,3 +50,7 @@ The location can be hardcoded.
    or:
    flutter pub run build_runner build --delete-conflicting-outputs
    ```
+   
+## Screenshot
+
+![Alt text](/images/sketch.jpg?raw=true "Sketch")
