@@ -3,6 +3,8 @@
 This demo application was created for recruitment purposes.
 It was written in Dart with BLoC pattern. 
 
+Author: Mateusz Orzechowski
+
 ## Goal
 Develop a Flutter application that displays weather information for a given city using the REST API ( https://www.metaweather.com/api/ ).
 The location can be hardcoded.
